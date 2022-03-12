@@ -9,7 +9,9 @@ RUN ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
     echo docker gid is ${DOCKER_GID} && \
     groupadd -g ${DOCKER_GID} docker && \
     apt update && apt dist-upgrade -y && \
-    apt install zsh git gpg wget curl vim python3 htop golang npm -y && \
+    apt install zsh git gpg wget curl vim python3 htop npm software-properties-common -y && \
+    add-apt-repository ppa:longsleep/golang-backports && \
+    apt install golang -y && \
     npm i -g npm n && \
     n latest && \
     PATH="$PATH" && \
