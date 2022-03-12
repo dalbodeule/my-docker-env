@@ -1,13 +1,17 @@
-FROM linuxserver/code-server:latest
+FROM linuxserver/openvscode-server:latest
 
-ENV TZ=Asia/Seoul
-ENV PUID=1000
-ENV PGUID=1000
+ARG TZ=Asia/Seoul
+ARG PUID=1000
+ARG PGUID=1000
+ARG DOCKER_GID=999
 
 RUN ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
+    echo docker gid is ${DOCKER_GID} && \
+    groupadd -g ${DOCKER_GID} docker && \
     apt update && apt dist-upgrade -y && \
-    apt install zsh git gpg wget curl vim python3 htop -y && \
-    npm i -g npm && \
+    apt install zsh git gpg wget curl vim python3 htop golang npm -y && \
+    npm i -g npm n && \
+    n latest && \
     PATH="$PATH" && \
     chsh -s /usr/bin/zsh && \
     curl -sSL https://get.docker.com/ | sh && \
