@@ -11,7 +11,8 @@ RUN ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt update && apt dist-upgrade -y && \
     apt install zsh git gpg wget curl vim python3 htop npm software-properties-common openjdk-17-jdk -y && \
     add-apt-repository ppa:longsleep/golang-backports && \
-    apt install golang -y && \
+    add-apt-repository ppa:cwchien/gradle && \
+    apt install golang gradle -y && \
     npm i -g npm n && \
     n latest && \
     PATH="$PATH" && \
