@@ -9,13 +9,14 @@ RUN ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
     echo docker gid is ${DOCKER_GID} && \
     groupadd -g ${DOCKER_GID} docker && \
     apt update && apt dist-upgrade -y && \
-    apt install zsh git gpg wget curl vim python3 htop npm software-properties-common openjdk-17-jdk -y && \
+    apt install software-properties-common -y && \
     add-apt-repository ppa:longsleep/golang-backports && \
     add-apt-repository ppa:cwchien/gradle && \
-    apt install golang gradle -y && \
-    npm i -g npm n && \
-    n latest && \
-    PATH="$PATH" && \
+    apt install golang gradle zsh git gpg wget curl vim python3 htop openjdk-17-jdk iputils-ping mariadb-client -y && \
+    curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n && \
+    bash n latest && \
+    hash -r && \
+    npm i -g npm@latest yarn@latest && \
     chsh -s /usr/bin/zsh && \
     curl -sSL https://get.docker.com/ | sh && \
     usermod -aG docker abc

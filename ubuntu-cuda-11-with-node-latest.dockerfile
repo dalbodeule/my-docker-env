@@ -5,9 +5,10 @@ WORKDIR /home/abc/workspace
 
 RUN ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime && \
     apt update && apt dist-upgrade -y && \
-    apt install sudo zsh git gpg curl wget npm vim screen python3 htop -y && \
-    npm i -g n
-RUN npm i -g npm yarn && \
+    apt install sudo zsh git gpg curl wget vim screen python3 htop iputils-ping -y && \
+    curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n && \
+    bash n latest && \
+    hash -r && \
     chsh -s /usr/bin/zsh && \
     groupadd -g 1000 abc && \
     useradd --uid 1000 --gid 1000 --shell /usr/bin/zsh --create-home abc && \
@@ -15,8 +16,7 @@ RUN npm i -g npm yarn && \
     mkdir -p /home/abc/workspace && \
     chown abc:abc /home/abc && \
     echo "abc:abc" | chpasswd && \
-    n latest && \
-    PATH="$PATH" && \
+    npm i -g npm@latest yarn@latest && \
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
     su abc sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
